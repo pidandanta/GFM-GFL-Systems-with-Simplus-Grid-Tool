@@ -1,27 +1,80 @@
-# Simplus Grid Tool (Version: v2025-NOV-20)
+# GFM-GFL Systems with Simplus Grid Tool
 
-Simplus Grid Tool (SimplusGT in short) is an open-source tool for dynamic analysis and time-domain simulation of power systems (large-scale 100+ bus systems, SG-IBR-composite systems, AC or DC or hybrid AC-DC systems, HVDC systems, etc). The tool is based on Matlab/Simulink.
+This repository provides modified power-system test cases for studying
+grid-forming (GFM) and grid-following (GFL) inverter configurations in
+MATLAB/Simulink. The models are built on top of the open-source
+[Simplus Grid Tool](https://github.com/Future-Power-Networks/Simplus-Grid-Tool)
+and keep the original toolbox structure so that the cases can be opened,
+compiled, and simulated with the standard SimplusGT workflow.
 
-![](https://raw.githubusercontent.com/Future-Power-Networks/Simplus-Grid-Tool/master/Documentations/Figures/SoftwareExample.png)
+The repository is intended as a reproducible model library for mixed
+synchronous-generator and inverter-based-resource systems, including modified
+14-bus, 39-bus, 68-bus, and 9-bus cases.
 
-## System Requirement
+## Repository Contents
 
-Matlab 2020a or later, with Simulink, Simscape/PowerSystem.
+- `modified_14bus_shan/`: modified IEEE 14-bus inverter-based cases.
+- `modified_39bus_shan/`: modified IEEE 39-bus GFM/GFL penetration and siting
+  cases.
+- `modified_68bus_shan/`: modified NETS/NYPS 68-bus mixed SG+IBR cases,
+  including generated Simulink models, workspace data, Excel inputs, and a
+  dedicated README.
+- `modified_9bus_shan/`: modified WSCC 9-bus cases.
+- `+SimplusGT/`, `App/`, `Documentations/`, `Examples/`, and `Library/`:
+  Simplus Grid Tool files required to run the modified cases.
+
+## Requirements
+
+- MATLAB R2020a or later
+- Simulink
+- Simscape Electrical / Specialized Power Systems
+- Python 3 with `openpyxl` for optional Excel scenario-generation scripts
 
 ## Quick Start
 
-Copy the repository (download all codes) into your PC, and run "InstallSimplusGT.m" by Matlab. That's all! 
+1. Clone or download this repository.
+2. Open MATLAB and set the repository root as the working directory.
+3. Install the SimplusGT path:
 
-Run "UserMain.m" and you will automatically get results of an example 4-bus power system whose default parameters are saved in "UserData.xlsm". More examples can be found in "Examples" folder.
+```matlab
+InstallSimplusGT
+```
 
-## Documentations
+4. Open a modified case folder. For example:
 
-The comments in "UserMain.m" and "UserData.xlsm" are very important. Please read them carefully. More details can be found in manuals in "Documentations" folder.
+```matlab
+cd modified_68bus_shan
+load Data_NETS_68Bus_GFM_80pct.mat
+open_system('Model_NETS_68Bus_GFM_80pct')
+```
 
-## Citation
+5. Run the Simulink model from the model window or from MATLAB:
 
-We would be very grateful if you could cite the toolbox when you used it in your publications and projects as "github.com/Future-Power-Networks/Simplus-Grid-Tool".
+```matlab
+sim('Model_NETS_68Bus_GFM_80pct')
+```
 
-## Contact
+For the 68-bus system, see
+[`modified_68bus_shan/README.md`](modified_68bus_shan/README.md) for the
+available scenarios and regeneration workflow.
 
-Yitong Li (yitongli@xjtu.edu.cn), Yunjie Gu (yunjie.gu@imperial.ac.uk).
+## Notes
+
+- Each generated Simulink model should be used together with its matching
+  `Data_*.mat` workspace file.
+- The `.xlsx` files are the main editable system input files. The `.json` files
+  are generated input files used by Simplus Grid Tool.
+- Some MATLAB warnings may appear when opening generated models because of
+  Simulink version or mask-display compatibility. Check the solver status and
+  output variables to confirm whether the simulation finished successfully.
+
+## Based On
+
+This repository is based on Simplus Grid Tool:
+
+```text
+https://github.com/Future-Power-Networks/Simplus-Grid-Tool
+```
+
+If you use the underlying toolbox, please follow the citation guidance from the
+original Simplus Grid Tool project.
