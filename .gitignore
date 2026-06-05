@@ -1,0 +1,10 @@
+/Library/SimplexPS.slx
+/Library/SimplusPS.slx
+/Library/SimplusGT.slx
+.venv/
+.idea/
+slprj/
+*.slxc
+*.asv
+*.m~
+.DS_Store
